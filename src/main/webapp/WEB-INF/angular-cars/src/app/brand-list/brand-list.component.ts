@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CarsService} from "../cars.service";
+import {DataSharingService} from "../data-sharing.service";
 
 @Component({
   selector: 'app-brand-list',
@@ -10,7 +11,11 @@ export class BrandListComponent implements OnInit {
 
   brands: string[];
 
-  constructor(private service: CarsService) {
+  constructor(private service: CarsService,
+              private dataSharingService: DataSharingService) {
+    dataSharingService.newCar.subscribe(() => {
+      this.ngOnInit()
+    })
   }
 
   ngOnInit(): void {

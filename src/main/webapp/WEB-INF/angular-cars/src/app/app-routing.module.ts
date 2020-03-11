@@ -4,7 +4,7 @@ import {CarModelListComponent} from "./car-model-list/car-model-list.component";
 
 
 const routes: Routes = [
-  {path: "cars/:brand", component: CarModelListComponent}
+  {path: "cars/:brand", component: CarModelListComponent},
 ];
 
 @NgModule({

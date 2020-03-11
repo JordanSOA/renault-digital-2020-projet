@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CarsService} from "../cars.service";
 import {Car} from "../car";
+import {DataSharingService} from "../data-sharing.service";
 
 @Component({
   selector: 'app-car-model-list',
@@ -12,9 +13,13 @@ export class CarModelListComponent implements OnInit {
 
   cars: Car[];
 
-  constructor(
-    private route: ActivatedRoute,
-    private service: CarsService) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private service: CarsService,
+              private dataSharingService: DataSharingService) {
+    dataSharingService.newCar.subscribe(() => {
+      this.ngOnInit()
+    })
   }
 
   ngOnInit() {
@@ -22,12 +27,13 @@ export class CarModelListComponent implements OnInit {
       this.service.findCarsByBrand(params["brand"])
         .then(response => response.json())
         .then(response => this.cars = response)
+        .then(() => (this.cars.length === 0) ? this.router.navigate(['/']) : undefined)
     });
   }
 
   delete(car: Car) {
     this.service.delete(car)
-      .then(response => this.ngOnInit())
+      .then(() => this.dataSharingService.newCar.next())
   }
 
 }
