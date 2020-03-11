@@ -9,8 +9,21 @@ export class CarsService {
   constructor() {
   }
 
+  public insert(car: Car): Promise<Response> {
+    return fetch(`http://localhost:8080/cars`,
+      {
+        method: "POST",
+        body: JSON.stringify(car),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    )
+  }
+
   public delete(car: Car): Promise<Response> {
-    return fetch(`http://localhost:8080/cars/${car.id}`, {method: "POST"})
+    return fetch(`http://localhost:8080/cars/${car.id}`,
+      {method: "DELETE"})
   }
 
   public findBrands(): Promise<Response> {

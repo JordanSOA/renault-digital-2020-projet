@@ -1,0 +1,13 @@
+{{diagnostic}}
+{{text}}
+<form>
+  <div>
+    <label for="brand">Brand</label>
+    <input type="text" id="brand" required [(ngModel)]="model.brand" name="brand">
+  </div>
+  <div>
+    <label for="model">Model</label>
+    <input type="text" id="model" required [(ngModel)]="model.model" name="model">
+  </div>
+  <button type="submit" (click)="onSubmit()">Submit</button>
+</form>

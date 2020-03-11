@@ -14,8 +14,7 @@ export class CarModelListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: CarsService
-  ) {
+    private service: CarsService) {
   }
 
   ngOnInit() {
