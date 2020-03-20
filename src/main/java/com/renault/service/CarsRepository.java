@@ -16,4 +16,5 @@ public interface CarsRepository extends JpaRepository<Car, Integer> {
     @Query("SELECT c.brand FROM cars c")
     Set<String> findBrands();
 
+
 }

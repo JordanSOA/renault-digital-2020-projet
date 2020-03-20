@@ -25,7 +25,10 @@ dependencies {
     compile "org.glassfish.jaxb:jaxb-runtime:2.3.2"
 
     // JDBC mysql
-    compile "mysql:mysql-connector-java:8.0.19"
+    //compile "mysql:mysql-connector-java:8.0.19"
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    compile "org.postgresql:postgresql:42.2.11"
+
 
     // Json
     compile "javax.json:javax.json-api:1.1.4"

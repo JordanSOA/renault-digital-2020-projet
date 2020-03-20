@@ -1,24 +1,35 @@
-import {Injectable} from '@angular/core';
-import {Car} from "./car";
+import { Injectable } from '@angular/core';
+import { Car } from "./car";
+import { HttpClient } from '@angular/common/http';
+import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarsService {
 
-  constructor() {
-  }
+  carObserver: Observer<Car>;
+  carObservable: Observable<Car>;
 
-  public delete(car: Car): Promise<Response> {
-    return fetch(`http://localhost:8080/cars/${car.id}`, {method: "POST"})
-  }
+constructor(private http: HttpClient) {
+  this.carObservable = new Observable<Car>(observer => {
+    this.carObserver = observer;
+  });
+};
 
-  public findBrands(): Promise<Response> {
-    return fetch("http://localhost:8080/cars/brands/")
+  public insert(car: Car): Observable<any> {
+    return this.http.post(`http://localhost:8080/cars/`, car);
   }
+  public delete (car: Car): Promise < Response > {
+  return fetch(`http://localhost:8080/cars/${car.id}`, { method: "POST" })
+};
 
-  public findCarsByBrand(brand: string): Promise<Response> {
-    return fetch(`http://localhost:8080/cars/brands/${brand}`)
-  }
+  public findBrands(): Promise < Response > {
+  return fetch("http://localhost:8080/cars/brands/")
+}
+
+  public findCarsByBrand(brand: string): Promise < Response > {
+  return fetch(`http://localhost:8080/cars/brands/${brand}`)
+}
 
 }

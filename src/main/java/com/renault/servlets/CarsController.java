@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestBody;
+import javax.validation.Valid;
 import javax.servlet.http.HttpServlet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,10 @@ public class CarsController extends HttpServlet {
     @Autowired
     private CarsRepository carsRepository;
 
+    @PostMapping("/")
+    public void insertCar(@RequestBody @Valid Car car) {
+        carsRepository.save(car);
+    }
     @PostMapping("/{id}")
     public void deleteCar(@PathVariable("id") int id) {
         carsRepository.deleteById(id);
@@ -36,5 +41,6 @@ public class CarsController extends HttpServlet {
     public List<Car> findCarsByBrand(@PathVariable("brand") String brand) {
         return carsRepository.findCarsByBrand(brand);
     }
+
 
 }

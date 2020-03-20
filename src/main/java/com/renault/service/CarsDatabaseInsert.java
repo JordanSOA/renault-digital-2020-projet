@@ -21,11 +21,11 @@ public class CarsDatabaseInsert {
     }
 
     public static void main(String... args) throws SQLException {
-        String url = "jdbc:mysql://172.17.0.2:3306/cars";
-        try (Connection connection = DriverManager.getConnection(url, "root", "12345")) {
+        String url = "jdbc:postgresql://localhost:5432/cars";
+        try (Connection connection = DriverManager.getConnection(url, "postgres", "12345")) {
             List<Car> cars = getCars();
             for (Car car : cars) {
-                String sql = "INSERT INTO cars VALUES (NULL, ?, ?)";
+                String sql = "INSERT INTO cars VALUES (DEFAULT, ?, ?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, car.getBrand());
                 preparedStatement.setString(2, car.getModel());
