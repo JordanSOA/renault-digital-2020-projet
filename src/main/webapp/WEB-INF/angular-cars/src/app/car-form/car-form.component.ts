@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Car } from '../car';
-import { CarsService } from '../cars.service';
+import {Component, OnInit} from '@angular/core';
+import {Car} from "../models/car";
+import {CarsService} from "../services/cars.service";
 
 @Component({
   selector: 'app-car-form',
@@ -10,17 +10,22 @@ import { CarsService } from '../cars.service';
 export class CarFormComponent implements OnInit {
 
   car: Car = new Car();
-  msg: string;
-  constructor(private service: CarsService) { }
+  message: string;
 
-  ngOnInit() {
+  constructor(private carsService: CarsService) {
+  }
+
+  ngOnInit(): void {
   }
 
   onSubmit() {
-    this.service.insert(this.car)
-    .subscribe(val => {
-      this.service.carObserver.next(this.car);
-      this.msg = `Created Car ${this.car.brand} ${this.car.model} added !`;
-    });
+    this.carsService
+      .insert(this.car)
+      .subscribe(value => {
+        this.carsService.carObverver.next(this.car);
+        this.message = `Car ${this.car.brand} ${this.car.model} added`;
+        this.car = new Car();
+      });
   }
+
 }

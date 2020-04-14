@@ -1,12 +1,30 @@
 spring:
-    datasource:
-        url: jdbc:postgresql://localhost:5432/cars
-        username: postgres
-        password: 12345
+  datasource:
+    name: database
+    # POSTGRES: change url for postgresql or mysql
+    url: jdbc:postgresql://localhost:5432/cars
+    #        url: jdbc:mysql://172.17.0.2:3306/cities
+    username: postgres
+    #        username: root
+    password: password
+  #        password: 12345
+  jpa:
+    properties:
+      hibernate:
+        # POSTGRES: change dialect for postgresql or mysql
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        #                dialect: org.hibernate.dialect.MySQLDialect
+        show-sql: true
+    generate-ddl: true
 
-    jpa:
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-                jdbc:
-                    time_zone: UTC
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+server:
+  port: 8080
