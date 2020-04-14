@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Car} from "../models/car";
-import {CarsService} from "../services/cars.service";
+import {CarsService} from '../services/cars.service';
 
 @Component({
   selector: 'app-car-form',

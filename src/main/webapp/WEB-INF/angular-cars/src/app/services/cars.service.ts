@@ -38,4 +38,10 @@ export class CarsService {
     return this.http.get(`http://localhost:${this.port}/cars/brands/${brand}`);
   }
 
+  public login(){
+    return this.http.post(`http://localhost:${this.port}/login`, {
+      "username": 'user',
+      "password" : 'password'
+    });
+  }
 }

@@ -12,6 +12,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonString;
 import javax.json.JsonValue;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -87,14 +88,14 @@ public class CarsTest extends AbstractIntegration {
     public void should_DELETE_root_removes_existing_car() {
         // bdd
         String brand = getBrands().stream().findFirst().orElseThrow();
-        Integer idBrand = getCarIdsForBrand(brand).stream().findFirst().orElseThrow();
-
+        //Integer idBrand = getCarIdsForBrand(brand).stream().findFirst().orElseThrow();
+        Integer integer = getCarIdsForBrand(brand).stream().findFirst().orElseThrow();
         // http
-        delete(format("cars/%s", idBrand));
+        delete(format("cars/%s", integer));
 
         // bdd
         Optional<Integer> idExists = getCarIdsForBrand(brand).stream()
-                .filter(id -> id.equals(idBrand))
+                .filter(id -> id.equals(integer))
                 .findFirst();
 
         // assert

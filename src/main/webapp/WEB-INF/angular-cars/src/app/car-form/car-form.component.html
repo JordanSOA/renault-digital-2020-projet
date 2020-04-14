@@ -4,21 +4,11 @@
   <div>{{message}}</div>
   <div>
     <label for="brand">brand: </label>
-    <input type="text"
-           name="brand"
-           id="brand"
-           minlength="3"
-           required
-           [(ngModel)]="car.brand">
+    <input type="text" name="brand" id="brand" minlength="3" required [(ngModel)]="car.brand">
   </div>
   <div>
     <label for="model">model: </label>
-    <input type="text"
-           name="model"
-           id="model"
-           minlength="3"
-           required
-           [(ngModel)]="car.model">
+    <input type="text" name="model" id="model" minlength="3" required [(ngModel)]="car.model">
   </div>
   <button type="submit" [disabled]="!carForm.form.valid">submit</button>
 </form>

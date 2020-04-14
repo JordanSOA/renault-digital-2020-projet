@@ -1,13 +1,9 @@
 package com.renault.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="cars")
+@Entity(name = "cars")
 public class Car {
 
     @Id
@@ -15,11 +11,11 @@ public class Car {
     private int id;
 
     @NotNull
-    @Column(nullable= false)
+    @Column(nullable = false)
     private String brand;
 
     @NotNull
-    @Column (nullable= false)
+    @Column(nullable = false)
     private String model;
 
     public Car() {

@@ -18,8 +18,10 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder());
-        // TODO add "user" and password "toto" with roles "USER"
+                .passwordEncoder(passwordEncoder())
+        .withUser("user")
+                .password("toto")
+                .roles("USER");
     }
 
     @Override

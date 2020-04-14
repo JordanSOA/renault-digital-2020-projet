@@ -12,8 +12,8 @@ apply plugin: "idea"
 apply plugin: "war"
 apply plugin: "io.spring.dependency-management"
 
-sourceCompatibility = 1.14
-targetCompatibility = 1.14
+sourceCompatibility = 1.12
+targetCompatibility = 1.12
 
 dependencies {
     // Servlet
