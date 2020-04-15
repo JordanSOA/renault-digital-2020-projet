@@ -2,6 +2,8 @@
   <h1><a routerLink="/">Cars</a></h1>
   <nav>
     <!-- TODO add login / logout link -->
+    <div *ngIf="!loggedIn()"><a routerLink="/login">login</a></div>
+    <div *ngIf="loggedIn()"><a routerLink="/logout">logout</a></div>
     <div><a routerLink="/create">create car</a></div>
     <div><a routerLink="/list">list cars</a></div>
   </nav>

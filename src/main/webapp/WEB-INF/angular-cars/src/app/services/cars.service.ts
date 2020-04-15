@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Car} from '../models/car';
 import {Observable, Observer} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class CarsService {
 
   carObverver: Observer<Car>;
 
-  carObversable: Observable<Car>
+  carObversable: Observable<Car>;
 
   constructor(private http: HttpClient) {
     this.carObversable = new Observable<Car>(observer => {
@@ -22,12 +22,18 @@ export class CarsService {
 
   // TODO add authorize header
   public insert(car: Car): Observable<any> {
-    return this.http.post(`http://localhost:${this.port}/cars`, car);
+    return this.http.post(`http://localhost:${this.port}/cars`, car, {headers : new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': `Basic ${sessionStorage.getItem('token')}`
+    })});
   }
 
   // TODO add authorize header
   public delete(car: Car): Observable<any> {
-    return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`);
+    return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`, {headers : new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': `Basic ${sessionStorage.getItem('token')}`
+    })});
   }
 
   public findBrands(): Observable<any> {
@@ -38,10 +44,10 @@ export class CarsService {
     return this.http.get(`http://localhost:${this.port}/cars/brands/${brand}`);
   }
 
-  public login(){
+  public login(username: string, password: string): Observable<any> {
     return this.http.post(`http://localhost:${this.port}/login`, {
-      "username": 'user',
-      "password" : 'password'
+      username,
+      password
     });
   }
 }

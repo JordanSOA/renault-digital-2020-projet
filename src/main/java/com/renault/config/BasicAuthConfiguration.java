@@ -2,6 +2,7 @@ package com.renault.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,12 +27,30 @@ public class BasicAuthConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
+        /*
         security
                 // disable form login security (for login)
                 .csrf().disable()
                 // TODO add 1 .antMatchers(...).authenticated() per URL
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/cars", "POST").authenticated()
+                .antMatchers("/cars/{id}", "DELETE").hasRole("USER")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+        */
+
+
+
+         security
+                // disable form login security (for login)
+                .csrf().disable()
+                .authorizeRequests()
+                 .antMatchers(HttpMethod.POST,"/cars").authenticated()
+                 .antMatchers(HttpMethod.DELETE,"/cars/{id}").authenticated()
+                 .anyRequest().permitAll()
                 // authentication type
                 .and().httpBasic();
     }
