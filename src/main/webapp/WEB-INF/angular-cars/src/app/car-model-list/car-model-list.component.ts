@@ -25,12 +25,10 @@ export class CarModelListComponent implements OnInit {
 
   delete(car: Car) {
     this.carsService.delete(car)
-<<<<<<< HEAD
-      .subscribe(response => {
-        this.carsService.carObverver.next(car);
-        this.ngOnInit();
-      });
-=======
+      // .subscribe(response => {
+      //   this.carsService.carObverver.next(car);
+      //   this.ngOnInit();
+      // });
       .subscribe(
         () => {
           this.carsService.carObverver.next(car);
@@ -40,7 +38,6 @@ export class CarModelListComponent implements OnInit {
           alert("Unauthorized");
         }
       );
->>>>>>> 67c57b34f14b8012a5ec969b917057ca10437191
   }
 
 }

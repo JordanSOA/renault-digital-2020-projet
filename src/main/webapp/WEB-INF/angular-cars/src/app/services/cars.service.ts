@@ -20,33 +20,31 @@ export class CarsService {
     });
   }
 
+  public insert(car: Car): Observable<any> {
+    return this.http.post(`http://localhost:${this.port}/cars`, car, {headers : new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: `Basic ${sessionStorage.getItem('token')}`
+    })});
+  }
+
   // TODO add authorize header
+  public delete(car: Car): Observable<any> {
+    return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`, {headers : new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: `Basic ${sessionStorage.getItem('token')}`
+    })});
+  }
+  // authenticated
   // public insert(car: Car): Observable<any> {
-  //   return this.http.post(`http://localhost:${this.port}/cars`, car, {headers : new HttpHeaders({
-  //     'Content-Type':  'application/json',
-  //     'Authorization': `Basic ${sessionStorage.getItem('token')}`
-  //   })});
+  //   return this.http.post(`http://localhost:${this.port}/cars`, car,
+  //     this.getAuthenticatedHttpOptions());
   // }
 
-  // // TODO add authorize header
+  // // authenticated
   // public delete(car: Car): Observable<any> {
-  //   return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`, {headers : new HttpHeaders({
-  //     'Content-Type':  'application/json',
-  //     'Authorization': `Basic ${sessionStorage.getItem('token')}`
-  //   })});
-  // authenticated
-
-
-  public insert(car: Car): Observable<any> {
-    return this.http.post(`http://localhost:${this.port}/cars`, car,
-      this.getAuthenticatedHttpOptions());
-  }
-
-  // authenticated
-  public delete(car: Car): Observable<any> {
-    return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`,
-      this.getAuthenticatedHttpOptions());
-  }
+  //   return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`,
+  //     this.getAuthenticatedHttpOptions());
+  // }
 
   public findBrands(): Observable<any> {
     return this.http.get(`http://localhost:${this.port}/cars/brands/`);
@@ -62,6 +60,15 @@ export class CarsService {
       password
     });
   }
+
+  public register(username: string, password: string): Observable<any> {
+    return this.http.post(`http://localhost:${this.port}/register`, {
+      username,
+      password
+    });
+  }
+
+
   //   return this.http
   //     .post(`http://localhost:${this.port}/login`, {
   //       username: username,
@@ -69,17 +76,17 @@ export class CarsService {
   //     });
   // }
 
-  private getAuthenticatedHttpOptions(): any {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      return {
-        headers: new HttpHeaders({
-          Authorization: `Basic ${token}`,
-          'Content-Type': 'application/json'
-        })
-      };
-    }
-    return undefined;
-  }
+  // private getAuthenticatedHttpOptions(): any {
+  //   const token = sessionStorage.getItem('token');
+  //   if (token) {
+  //     return {
+  //       headers: new HttpHeaders({
+  //         Authorization: `Basic ${token}`,
+  //         'Content-Type': 'application/json'
+  //       })
+  //     };
+  //   }
+  //   return undefined;
+  // }
 
 }

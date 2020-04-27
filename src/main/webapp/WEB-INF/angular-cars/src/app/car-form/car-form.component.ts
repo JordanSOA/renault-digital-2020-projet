@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Car} from "../models/car";
-<<<<<<< HEAD
+import {Car} from '../models/car';
 import {CarsService} from '../services/cars.service';
-=======
-import {CarsService} from "../services/cars.service";
->>>>>>> 67c57b34f14b8012a5ec969b917057ca10437191
 
 @Component({
   selector: 'app-car-form',
@@ -32,7 +28,7 @@ export class CarFormComponent implements OnInit {
           this.car = new Car();
         },
         () => {
-          alert("Unauthorized");
+          alert('Unauthorized');
         }
       );
   }

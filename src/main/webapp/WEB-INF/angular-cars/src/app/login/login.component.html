@@ -1,4 +1,4 @@
-<form #loginForm="ngForm" (ngSubmit)="login()">
+<!-- <form #loginForm="ngForm" (ngSubmit)="login()">
     <div>
         <label for="username">username: </label>
         <input type="text" name="username" id="username" minlength="3" required [(ngModel)]="model.username">
@@ -8,25 +8,19 @@
         <input type="text" name="password" id="password" minlength="3" required [(ngModel)]="model.password">
     </div>
     <button type="submit" [disabled]="!loginForm.form.valid">submit</button>
-</form> 
+</form>  -->
 
-<!-- <h2>Login</h2>
+<h2>Login</h2>
 <form name="form" (ngSubmit)="loginForm.form.valid && login()" #loginForm="ngForm" novalidate>
   <div>
     <label for="username">username: </label>
-    <input type="text"
-           id="username"
-           name="username" [(ngModel)]="model.username"
-           #username="ngModel" required/>
+    <input type="text" id="username" name="username" [(ngModel)]="model.username" #username="ngModel" required />
   </div>
   <div>
     <label for="password">password: </label>
-    <input type="password"
-           id="password"
-           name="password" [(ngModel)]="model.password"
-           #password="ngModel" required/>
+    <input type="password" id="password" name="password" [(ngModel)]="model.password" #password="ngModel" required />
   </div>
   <div>
     <button>Login</button>
   </div>
-</form> -->
+</form>

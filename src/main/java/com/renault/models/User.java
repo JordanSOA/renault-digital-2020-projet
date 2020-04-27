@@ -6,37 +6,35 @@ import java.util.List;
 
 @Entity(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    @NotNull
+
+    @Id
     @Column(name="username")
     private String username;
-    @NotNull
+
+
     @Column(name="password")
     private String password;
 
-    /*
-    @NotNull
-    @Column(name="roles")
-    private List<String> roles;
-*/
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_username"),
+            inverseJoinColumns = @JoinColumn(name = "role_name"))
+    private List<Role> roles;
+
+
+    @Column(name="enabled")
+    private boolean enabled;
+
     public User() {
     }
 
-    public User(int id, String username, String password) {
-        this.id = id;
+    public User(String username, String password, List<Role> roles,boolean enabled) {
         this.username = username;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.roles = roles;
+        this.enabled = enabled;
     }
 
     public String getUsername() {
@@ -54,16 +52,24 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-/*
-    public List<String> getRoles() {
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-*/
-/*
+
+    /*
     @Override
     public String toString() {
         return "User{" +
