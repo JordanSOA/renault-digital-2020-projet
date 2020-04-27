@@ -6,7 +6,11 @@ spring:
     #        url: jdbc:mysql://172.17.0.2:3306/cities
     username: postgres
     #        username: root
+<<<<<<< HEAD
     password: 12345
+=======
+    password: password
+>>>>>>> 67c57b34f14b8012a5ec969b917057ca10437191
   #        password: 12345
   jpa:
     properties:
@@ -15,6 +19,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
         #                dialect: org.hibernate.dialect.MySQLDialect
         show-sql: true
+<<<<<<< HEAD
+=======
+        hbm2ddl:
+          auto: create-drop
+>>>>>>> 67c57b34f14b8012a5ec969b917057ca10437191
     generate-ddl: true
 
 logging:

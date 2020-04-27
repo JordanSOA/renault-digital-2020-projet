@@ -1,6 +1,6 @@
 package com.renault.service;
 
-import com.renault.model.Car;
+import com.renault.models.Car;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

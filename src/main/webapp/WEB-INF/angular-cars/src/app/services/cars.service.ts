@@ -21,19 +21,31 @@ export class CarsService {
   }
 
   // TODO add authorize header
+  // public insert(car: Car): Observable<any> {
+  //   return this.http.post(`http://localhost:${this.port}/cars`, car, {headers : new HttpHeaders({
+  //     'Content-Type':  'application/json',
+  //     'Authorization': `Basic ${sessionStorage.getItem('token')}`
+  //   })});
+  // }
+
+  // // TODO add authorize header
+  // public delete(car: Car): Observable<any> {
+  //   return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`, {headers : new HttpHeaders({
+  //     'Content-Type':  'application/json',
+  //     'Authorization': `Basic ${sessionStorage.getItem('token')}`
+  //   })});
+  // authenticated
+
+
   public insert(car: Car): Observable<any> {
-    return this.http.post(`http://localhost:${this.port}/cars`, car, {headers : new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': `Basic ${sessionStorage.getItem('token')}`
-    })});
+    return this.http.post(`http://localhost:${this.port}/cars`, car,
+      this.getAuthenticatedHttpOptions());
   }
 
-  // TODO add authorize header
+  // authenticated
   public delete(car: Car): Observable<any> {
-    return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`, {headers : new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': `Basic ${sessionStorage.getItem('token')}`
-    })});
+    return this.http.delete(`http://localhost:${this.port}/cars/${car.id}`,
+      this.getAuthenticatedHttpOptions());
   }
 
   public findBrands(): Observable<any> {
@@ -50,4 +62,24 @@ export class CarsService {
       password
     });
   }
+  //   return this.http
+  //     .post(`http://localhost:${this.port}/login`, {
+  //       username: username,
+  //       password: password
+  //     });
+  // }
+
+  private getAuthenticatedHttpOptions(): any {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      return {
+        headers: new HttpHeaders({
+          Authorization: `Basic ${token}`,
+          'Content-Type': 'application/json'
+        })
+      };
+    }
+    return undefined;
+  }
+
 }

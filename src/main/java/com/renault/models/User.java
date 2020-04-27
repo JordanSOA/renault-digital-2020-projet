@@ -1,4 +1,4 @@
-package com.renault.model;
+package com.renault.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

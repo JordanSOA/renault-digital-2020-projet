@@ -12,6 +12,7 @@ apply plugin: "idea"
 apply plugin: "war"
 apply plugin: "io.spring.dependency-management"
 
+
 sourceCompatibility = 1.12
 targetCompatibility = 1.12
 

@@ -19,8 +19,6 @@ export class BrandListComponent implements OnInit {
   ngOnInit(): void {
     this.service.findBrands()
     .subscribe(response => this.brands = response);
-      // .then(response => response.json())
-      // .then(response => this.brands = response);
   }
 
 }

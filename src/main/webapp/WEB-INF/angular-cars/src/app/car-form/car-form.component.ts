@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Car} from "../models/car";
+<<<<<<< HEAD
 import {CarsService} from '../services/cars.service';
+=======
+import {CarsService} from "../services/cars.service";
+>>>>>>> 67c57b34f14b8012a5ec969b917057ca10437191
 
 @Component({
   selector: 'app-car-form',
@@ -21,11 +25,16 @@ export class CarFormComponent implements OnInit {
   onSubmit() {
     this.carsService
       .insert(this.car)
-      .subscribe(value => {
-        this.carsService.carObverver.next(this.car);
-        this.message = `Car ${this.car.brand} ${this.car.model} added`;
-        this.car = new Car();
-      });
+      .subscribe(
+        () => {
+          this.carsService.carObverver.next(this.car);
+          this.message = `Car ${this.car.brand} ${this.car.model} added`;
+          this.car = new Car();
+        },
+        () => {
+          alert("Unauthorized");
+        }
+      );
   }
 
 }

@@ -178,3 +178,126 @@ Référence : [https://www.baeldung.com/spring-security-login-angular](https://w
         sessionStorage.setItem('token', base64hash);
         ```
     - Le token doit être envoyé avec les requêtes authentifiées
+<<<<<<< HEAD
+=======
+
+### Step 9 - Enregistrement
+
+Afin d'enregistrer un nouvel utilisateur, nous devons stocker les utilisateurs et roles en base de données. Pour cela, nous avons besoin de 2 nouvelles entités, `User` et `Role`, que vous pouvez reprendre de votre exercice de la semaine passé (voir exercice de Frank : [https://github.com/Frank-readresolve/people](https://github.com/Frank-readresolve/people)). Nous avons aussi besoin de encoder (hasher) le mot de passe de l'utilisateur, et configurer Spring pour qu'il le fasse automatiquement. Finalement, nous allons ajouter l'enregistrement d'un nouvel utilisateur grâce à un formulaire.
+
+Références :
+
+- Utilisation de l'encodage de mod de passe : https://www.baeldung.com/spring-security-registration-password-encoding-bcrypt
+- Quelques explication sur le hashing BCrypt et autres : https://www.baeldung.com/java-password-hashing
+- Custom authentication provider : https://www.baeldung.com/spring-security-authentication-provider
+- Custom user details service : https://www.baeldung.com/spring-security-authentication-with-a-database
+ 
+Backend :
+
+- `User` et `Role`
+    - Implémenter les 2 entités (reprendre le code de la semaine passé)
+    - Un `User` a un username, un password, et peut avoir plusieurs `Role`
+    - Un `Role` a un nom
+- `ApplicationService`
+    - À l'init de l'application, ajouter 2 roles : "USER" et "ADMIN"
+    - Ajouter un user "admin" qui a le role "ADMIN"
+- `BasicAuthConfiguration`
+    - Configurer le authentication provider en lui ajoutant un `UserDetailsService`
+    - Configurer le authentication provider en lui ajoutant le `BCryptPasswordEncoder`
+    - Configurer l'autorisation pour que le suppression de voiture ne soit possible que pour un role "ADMIN"
+- `UserDetailsService`
+    - Créer un nouveau service pour le authentication provider qui étend `org.springframework.security.core.userdetails.UserDetailsService`
+    - Implémenter la méthode `loadUserByUsername` qui doit retourner charger un `User` et retourner un `UserDetails` (vous pouvez utiliser la sous-classe `org.springframework.security.core.userdetails.User`)
+    - Dans la méthode `loadUserByUsername` vous allez devoir instancier des GrantedAuthority pour chaque role (vous pouvez utiliser la sous-classe `org.springframework.security.core.authority.SimpleGrantedAuthority`)
+- `UserService`
+    - Dans la méthode `verifyUser`, vous devez utiliser le password encoder pour valider l'utilisateur
+    - (si le mot de passe n'est pas bon, vous pouvez renvoyer un `org.springframework.security.authentication.BadCredentialsException`)
+    - Créer une méthode `registerUser`, qui servira à créer un nouvel utilisateur
+    
+Frontend :
+
+- Créer un nouveau component "register" qui appelle le backend pour créer un nouveau user
+- (ce component ressemblera beaucoup au component "login")
+
+Bonus :
+
+- Récupérer l'utilisateur authentifié : https://www.baeldung.com/get-user-in-spring-security
+- Expressions de sécurités pour roles : https://www.baeldung.com/spring-security-expressions-basic
+- Pour la configuration de l'OAuth2 : https://www.baeldung.com/spring-security-5-oauth2-login
+- Spring security user / role schema (pas nécessaire de faire pareil) : https://docs.spring.io/spring-security/site/docs/current/reference/html5/#user-schema
+- Spring JDBC authentification : https://www.baeldung.com/spring-security-jdbc-authentication
+
+### Step 10 - Analyse fonctionnelle
+
+Avant de commencer, nous allons créer une nouvelle application à partir de spring initializr et créer l'arborescence nécessaire au démarrage du projet (le corrigé se fera sur l'application "Cars", mais vous pouvez le faire pour votre projet).
+
+- Créer un nouveau dépôt sur github
+- Création du serveur
+    - Aller sur [spring initializr](https://start.spring.io/)
+    - Choisir Groovy / Maven
+    - Choisir Java 11 (voir [https://en.wikipedia.org/wiki/Java_version_history](https://en.wikipedia.org/wiki/Java_version_history))
+    - Choisir Spring Boot 2.2.6
+    - Remplir project metadata ("cars")
+    - Ajouter les dépendances
+        - Spring Boot DevTools
+        - Spring Web
+        - Spring Security
+        - Spring JDBC API
+        - Spring Data JPA
+        - MySQL Driver / PostgreSQL Driver
+    - Télécharger le zip et unzip à la racine de votre projet
+    - Renommer le dossier "cars" en "server"
+- Création du client
+    - Exécuter `ng new cars` à la racine de votre projet
+    - Renommer le dossier "cars" en "client"
+
+Nous allons procéder à l'analyse fonctionnelle pour l'application "Cars" (vous pouvez utiliser votre projet comme exemple). [Introduction sur les diagrammes UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language#Diagrams) à lire. 
+
+- [UML - Use case diagram](https://en.wikipedia.org/wiki/Use_case_diagram)
+    - Commencer sur papier à réfléchir aux différents cas d'usage
+    - Version électronique
+        - [https://app.diagrams.net](https://app.diagrams.net) (utiliser le format "blank")
+        - [PlantUML - Use Case Diagram](https://plantuml.com/use-case-diagram)
+    - Pour l'application "Cars", modéliser les différentes actions possibles :
+        - Un visiteur peut voir la liste de voitures
+        - Un administrateur peut supprimer une voiture
+        - etc.
+    - Déterminer les roles à partir du diagramme
+- Maquettage
+    - Commencer sur papier à réfléchir aux différents écran
+    - Penser en terme de "boites" (tag html, composant angular)
+    - Version électronique [https://pencil.evolus.vn/](https://pencil.evolus.vn/)
+
+### Step 11 - Analyse technique
+
+L'analyse technique défini les concepts techniques avant de les implémenter.
+
+- [UML - Class diagram](https://en.wikipedia.org/wiki/Class_diagram)
+    - Définir les concepts de votre application sur papier
+    - Version électronique
+        - [https://app.diagrams.net](https://app.diagrams.net) (utiliser le format "Class Diagram")
+        - [PlantUML - Class Diagram](https://plantuml.com/class-diagram)
+- [UML - Entity–relationship model](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model)
+    - Représente les concepts de votre application du point de vu de la base de données
+    - (tip : à partir du SQL généré par Spring, vous pouvez utiliser [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (utiliser "Files > Import" pour importer un script SQL)
+    - Version électronique
+        - [https://app.diagrams.net](https://app.diagrams.net) (utiliser le format "Entity Relationship Diagram")
+        - [PlantUML - Entity Relationship Diagram](https://plantuml.com/ie-diagram)
+
+Bonus :
+
+- [UML - Component diagram](https://en.wikipedia.org/wiki/Component_diagram)
+    - Exemple plus simple : [https://www.uml-diagrams.org/package-diagrams-examples.html](https://www.uml-diagrams.org/package-diagrams-examples.html)
+    - Aussi architecture multi-tiers : [https://www.uml-diagrams.org/multi-layered-web-architecture-uml-package-diagram-example.html](https://www.uml-diagrams.org/multi-layered-web-architecture-uml-package-diagram-example.html)
+    - Définir les composants de votre application sur papier : un client, un serveur, une bdd, des API externes ?
+    - Version électronique
+        - [https://app.diagrams.net](https://app.diagrams.net) (utiliser le format "blank")
+        - [PlantUML - Component diagram](https://plantuml.com/component-diagram)
+- Documentation technique :
+    - serveur : Exécuter `./gradlew javadoc` pour générer la document des classes Java
+    - client : Utiliser [compodoc](https://compodoc.github.io/compodoc/)
+
+Alternatives :
+
+- [StarUML 3](http://staruml.io/)
+>>>>>>> 67c57b34f14b8012a5ec969b917057ca10437191

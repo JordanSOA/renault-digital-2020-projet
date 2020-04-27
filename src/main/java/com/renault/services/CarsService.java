@@ -1,6 +1,6 @@
 package com.renault.services;
 
-import com.renault.model.Car;
+import com.renault.models.Car;
 
 import java.util.List;
 import java.util.Set;

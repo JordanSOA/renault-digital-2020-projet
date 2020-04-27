@@ -1,7 +1,6 @@
 package com.renault.services;
 
-
-import com.renault.model.Car;
+import com.renault.models.Car;
 import com.renault.repositories.CarsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +29,16 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     @Transactional
     public void insertData() {
+        insertUsers();
+        insertCars();
+    }
+
+    private void insertUsers() {
+        // TODO insert a USER role and a ADMIN role
+        // TODO insert a admin user with the "supermotdepasse1!" password
+    }
+
+    private void insertCars() {
         for (Car car : getCars()) {
             carsRepository.save(car);
         }

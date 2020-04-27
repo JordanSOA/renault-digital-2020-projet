@@ -1,7 +1,7 @@
 package com.renault.controllers;
 
 import com.renault.dtos.CarDto;
-import com.renault.model.Car;
+import com.renault.models.Car;
 import com.renault.services.CarsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,8 +45,9 @@ public class CarsController extends HttpServlet {
     public void createCar(@RequestBody @Valid CarDto car) {
         carsService.insertCar(new Car(car.getBrand(), car.getModel()));
     }
+
     // authenticated
-    @DeleteMapping("cars/{id}")
+    @DeleteMapping("/cars/{id}")
     public void deleteCar(@PathVariable("id") int id) {
         carsService.deleteCar(id);
     }
