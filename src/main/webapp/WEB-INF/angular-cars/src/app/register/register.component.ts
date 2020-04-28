@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     this.model = {};
     sessionStorage.setItem('token', '');
   }
-
+/*
   register(): void {
     this.service.register(this.model.username, this.model.password)
     .subscribe(isValid => {
@@ -34,5 +34,21 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-
+*/
+  register() {
+    this.service
+      .register(this.model.username, this.model.password)
+      .subscribe(
+        () => {
+          let base64hash = btoa(this.model.username + ':' + this.model.password);
+          sessionStorage.setItem('token', base64hash);
+          this.router.navigate(['']);
+        },
+        error => {
+          if (error.status === 401) {
+            alert('Authentication failed');
+          }
+        }
+      );
+  }
 }

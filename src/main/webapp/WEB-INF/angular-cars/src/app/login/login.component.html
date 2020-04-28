@@ -21,6 +21,6 @@
     <input type="password" id="password" name="password" [(ngModel)]="model.password" #password="ngModel" required />
   </div>
   <div>
-    <button>Login</button>
+    <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
   </div>
 </form>

@@ -105,7 +105,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         roleRepository.save(roleUser);
         roleRepository.save(roleAdmin);
         // TODO insert a admin user with the "supermotdepasse1!" password
-        User userAdmin = new User("adminUser", passwordEncoder.encode("supermotdepasse1!"), List.of(roleUser) ,true);
+        User userAdmin = new User("adminUser", passwordEncoder.encode("supermotdepasse1!"), List.of(roleAdmin) ,true);
         userRepository.save(userAdmin);
     }
 
